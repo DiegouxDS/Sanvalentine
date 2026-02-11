@@ -3,16 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>San Valentín</title>
+<title>Nuestra Historia</title>
 
 <style>
 body{
     margin:0;
-    font-family:Arial, sans-serif;
-    text-align:center;
     overflow:hidden;
-    background:linear-gradient(135deg,#ff9ecf,#ff4fa3);
+    font-family:Arial, sans-serif;
+    background:black;
     color:white;
+}
+
+/* ESTRELLAS PROFUNDAS */
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    overflow:hidden;
+    z-index:-2;
+}
+
+.stars::after{
+    content:"";
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    box-shadow:
+    100px 200px white, 300px 400px white, 500px 600px white,
+    800px 150px white, 1200px 700px white, 1600px 300px white,
+    200px 800px white, 900px 500px white, 1400px 200px white,
+    1700px 600px white;
+    animation:moveStars 60s linear infinite;
+}
+
+@keyframes moveStars{
+    from{transform:translateY(0);}
+    to{transform:translateY(-2000px);}
 }
 
 /* CONTENEDOR */
@@ -21,6 +49,7 @@ body{
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
+    text-align:center;
 }
 
 /* BOTONES */
@@ -48,57 +77,46 @@ button:hover{
     transform:scale(1.1);
 }
 
-/* IMÁGENES */
 img{
     width:160px;
     border-radius:20px;
     margin:10px;
-    box-shadow:0 0 20px pink;
-}
-
-/* ESTRELLAS */
-.stars {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: black url('https://www.transparenttextures.com/patterns/stardust.png');
-    z-index: -1;
-    animation: moveStars 50s linear infinite;
-}
-
-@keyframes moveStars {
-    from {background-position: 0 0;}
-    to {background-position: 10000px 5000px;}
+    box-shadow:0 0 25px pink;
 }
 
 /* STAR WARS CRAWL */
-.crawl {
-    position: absolute;
-    bottom: -100%;
-    width: 100%;
-    height: 100%;
-    perspective: 400px;
+.crawl{
+    position:absolute;
+    bottom:-100%;
+    width:100%;
+    height:100%;
+    perspective:400px;
 }
 
-.crawl-text {
-    position: absolute;
-    top: 100%;
-    width: 100%;
-    transform-origin: 50% 100%;
-    animation: crawl 18s linear forwards;
-    font-size: 28px;
-    color: gold;
+.crawl-text{
+    position:absolute;
+    top:100%;
+    width:100%;
+    transform-origin:50% 100%;
+    animation:crawl 20s linear forwards;
+    font-size:28px;
+    color:gold;
 }
 
-@keyframes crawl {
-    0% {
-        top: 100%;
-        transform: rotateX(20deg) translateZ(0);
-    }
-    100% {
-        top: -250%;
-        transform: rotateX(25deg) translateZ(-300px);
-    }
+@keyframes crawl{
+    0%{top:100%; transform:rotateX(20deg) translateZ(0);}
+    100%{top:-250%; transform:rotateX(25deg) translateZ(-300px);}
+}
+
+/* ZOOM INICIAL */
+.intro{
+    font-size:40px;
+    animation:zoomOut 5s forwards;
+}
+
+@keyframes zoomOut{
+    0%{transform:scale(3); opacity:1;}
+    100%{transform:scale(0.5); opacity:0;}
 }
 
 /* CORAZONES */
@@ -118,12 +136,14 @@ img{
 
 <body>
 
-<div class="container" id="main">
+<div class="stars"></div>
+
+<audio id="musica" src="baile.mp3"></audio>
+
+<div class="container" id="contenido">
     <h1 id="pregunta">¿Quieres ser mi San Valentín? 💖</h1>
-    <div id="botones">
-        <button class="si" onclick="aceptar()">Sí ❤️</button>
-        <button class="no" onclick="noClick()">No 😢</button>
-    </div>
+    <button class="si" onclick="aceptar()">Sí ❤️</button>
+    <button class="no" onclick="noClick()">No 😢</button>
     <div id="fotos"></div>
 </div>
 
@@ -135,53 +155,57 @@ function noClick(){
     contadorNo++;
 
     if(contadorNo == 1){
-        document.getElementById("pregunta").innerText = "¿Estás segura? 🥺";
+        document.getElementById("pregunta").innerText="¿Estás segura? 🥺";
     }
     else if(contadorNo == 2){
-        document.getElementById("pregunta").innerText = "¿Muy segura? Mira nuestras fotos 💕";
-
-        document.getElementById("fotos").innerHTML = `
+        document.getElementById("pregunta").innerText="¿Muy segura? Mira nuestras fotos 💕";
+        document.getElementById("fotos").innerHTML=`
             <img src="foto1.jpg">
-            <img src="foto2.jpg">
-            <br>
+            <img src="foto2.jpg"><br>
             <img src="foto3.jpg">
             <img src="foto4.jpg">
         `;
-
         document.querySelector(".no").style.display="none";
     }
 }
 
 function aceptar(){
-    document.body.innerHTML = `
-        <div class="stars"></div>
-        <div class="crawl">
-            <div class="crawl-text">
-                <p>Eres la mejor mujer con la que he estado...</p>
-                <br>
-                <p>Gracias por acompañarme siempre</p>
-                <p>y estar conmigo en todo.</p>
-                <br>
-                <p>De verdad te amo mucho negra ❤️</p>
-            </div>
-        </div>
+
+    let audio=document.getElementById("musica");
+    audio.play();
+
+    document.getElementById("contenido").innerHTML=`
+        <div class="intro">Hace mucho tiempo... en una historia de amor inolvidable ❤️</div>
     `;
 
     setTimeout(()=>{
-        document.body.innerHTML = `
-            <div class="container">
-                <h1>🎉 FELICIDADES 🎉</h1>
-                <h2>Eres mi San Valentín mona 💖</h2>
-                <h3>Te amo mucho ❤️</h3>
+        document.getElementById("contenido").innerHTML=`
+            <div class="crawl">
+                <div class="crawl-text">
+                    <p>Eres la mejor mujer con la que he estado...</p>
+                    <br>
+                    <p>Gracias por acompañarme siempre</p>
+                    <p>y estar conmigo en todo.</p>
+                    <br>
+                    <p>De verdad te amo mucho negra ❤️</p>
+                </div>
             </div>
         `;
+    },5000);
+
+    setTimeout(()=>{
+        document.getElementById("contenido").innerHTML=`
+            <h1>🎉 FELICIDADES 🎉</h1>
+            <h2>Eres mi San Valentín mona 💖</h2>
+            <h3>Te amo mucho ❤️</h3>
+        `;
         corazones();
-    },18000);
+    },25000);
 }
 
 function corazones(){
     setInterval(()=>{
-        const heart = document.createElement("div");
+        let heart=document.createElement("div");
         heart.className="heart";
         heart.innerHTML="❤️";
         heart.style.left=Math.random()*100+"vw";
