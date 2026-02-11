@@ -8,22 +8,22 @@
 <style>
 body{
     margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    background:linear-gradient(135deg,#ffb6d9,#ff4fa3);
     font-family:Arial, sans-serif;
     text-align:center;
     overflow:hidden;
+    background:linear-gradient(135deg,#ff9ecf,#ff4fa3);
     color:white;
 }
 
-.hidden{
-    display:none;
+/* CONTENEDOR */
+.container{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
 }
 
+/* BOTONES */
 button{
     padding:15px 35px;
     margin:15px;
@@ -48,14 +48,60 @@ button:hover{
     transform:scale(1.1);
 }
 
+/* IMÁGENES */
 img{
-    width:180px;
+    width:160px;
     border-radius:20px;
     margin:10px;
-    box-shadow:0 0 15px rgba(255,255,255,0.6);
+    box-shadow:0 0 20px pink;
 }
 
-/* corazones */
+/* ESTRELLAS */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black url('https://www.transparenttextures.com/patterns/stardust.png');
+    z-index: -1;
+    animation: moveStars 50s linear infinite;
+}
+
+@keyframes moveStars {
+    from {background-position: 0 0;}
+    to {background-position: 10000px 5000px;}
+}
+
+/* STAR WARS CRAWL */
+.crawl {
+    position: absolute;
+    bottom: -100%;
+    width: 100%;
+    height: 100%;
+    perspective: 400px;
+}
+
+.crawl-text {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    transform-origin: 50% 100%;
+    animation: crawl 18s linear forwards;
+    font-size: 28px;
+    color: gold;
+}
+
+@keyframes crawl {
+    0% {
+        top: 100%;
+        transform: rotateX(20deg) translateZ(0);
+    }
+    100% {
+        top: -250%;
+        transform: rotateX(25deg) translateZ(-300px);
+    }
+}
+
+/* CORAZONES */
 .heart{
     position:absolute;
     bottom:-20px;
@@ -72,48 +118,65 @@ img{
 
 <body>
 
-<!-- PANTALLA 1 -->
-<div id="page1">
-    <h1>¿Quieres ser mi San Valentín? 💖</h1>
-    <button class="si" onclick="mostrarFotos()">Sí ❤️</button>
-    <button class="no" onclick="moverNo()">No 😢</button>
-</div>
-
-<!-- PANTALLA 2 (FOTOS) -->
-<div id="page2" class="hidden">
-    <h1>Mira lo lindos que somos 💕</h1>
-
-    <!-- 🔥 CAMBIA ESTAS IMÁGENES -->
-    <img src="foto1.jpg">
-    <img src="foto2.jpg">
-
-    <br>
-    <button class="si" onclick="final()">Sí 💘</button>
+<div class="container" id="main">
+    <h1 id="pregunta">¿Quieres ser mi San Valentín? 💖</h1>
+    <div id="botones">
+        <button class="si" onclick="aceptar()">Sí ❤️</button>
+        <button class="no" onclick="noClick()">No 😢</button>
+    </div>
+    <div id="fotos"></div>
 </div>
 
 <script>
 
-function moverNo(){
-    const boton = document.querySelector(".no");
-    const x = Math.random() * window.innerWidth;
-    const y = Math.random() * window.innerHeight;
-    boton.style.position="absolute";
-    boton.style.left = x + "px";
-    boton.style.top = y + "px";
+let contadorNo = 0;
+
+function noClick(){
+    contadorNo++;
+
+    if(contadorNo == 1){
+        document.getElementById("pregunta").innerText = "¿Estás segura? 🥺";
+    }
+    else if(contadorNo == 2){
+        document.getElementById("pregunta").innerText = "¿Muy segura? Mira nuestras fotos 💕";
+
+        document.getElementById("fotos").innerHTML = `
+            <img src="foto1.jpg">
+            <img src="foto2.jpg">
+            <br>
+            <img src="foto3.jpg">
+            <img src="foto4.jpg">
+        `;
+
+        document.querySelector(".no").style.display="none";
+    }
 }
 
-function mostrarFotos(){
-    document.getElementById("page1").classList.add("hidden");
-    document.getElementById("page2").classList.remove("hidden");
-}
-
-function final(){
+function aceptar(){
     document.body.innerHTML = `
-        <h1>🎉 Felicidades 🎉</h1>
-        <h2>Eres mi San Valentín mona 💖</h2>
-        <h3>Te amo mucho ❤️</h3>
+        <div class="stars"></div>
+        <div class="crawl">
+            <div class="crawl-text">
+                <p>Eres la mejor mujer con la que he estado...</p>
+                <br>
+                <p>Gracias por acompañarme siempre</p>
+                <p>y estar conmigo en todo.</p>
+                <br>
+                <p>De verdad te amo mucho negra ❤️</p>
+            </div>
+        </div>
     `;
-    corazones();
+
+    setTimeout(()=>{
+        document.body.innerHTML = `
+            <div class="container">
+                <h1>🎉 FELICIDADES 🎉</h1>
+                <h2>Eres mi San Valentín mona 💖</h2>
+                <h3>Te amo mucho ❤️</h3>
+            </div>
+        `;
+        corazones();
+    },18000);
 }
 
 function corazones(){
