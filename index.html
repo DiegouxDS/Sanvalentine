@@ -17,17 +17,16 @@ body{
     font-family:Arial, sans-serif;
     text-align:center;
     overflow:hidden;
+    color:white;
 }
 
-h1{
-    color:white;
-    font-size:40px;
-    margin-bottom:30px;
+.hidden{
+    display:none;
 }
 
 button{
     padding:15px 35px;
-    margin:10px;
+    margin:15px;
     font-size:18px;
     border:none;
     border-radius:30px;
@@ -49,6 +48,13 @@ button:hover{
     transform:scale(1.1);
 }
 
+img{
+    width:180px;
+    border-radius:20px;
+    margin:10px;
+    box-shadow:0 0 15px rgba(255,255,255,0.6);
+}
+
 /* corazones */
 .heart{
     position:absolute;
@@ -66,20 +72,26 @@ button:hover{
 
 <body>
 
-<h1>¿Quieres ser mi San Valentín? 💖</h1>
+<!-- PANTALLA 1 -->
+<div id="page1">
+    <h1>¿Quieres ser mi San Valentín? 💖</h1>
+    <button class="si" onclick="mostrarFotos()">Sí ❤️</button>
+    <button class="no" onclick="moverNo()">No 😢</button>
+</div>
 
-<button class="si" onclick="aceptar()">Sí ❤️</button>
-<button class="no" onclick="moverNo()">No 😢</button>
+<!-- PANTALLA 2 (FOTOS) -->
+<div id="page2" class="hidden">
+    <h1>Mira lo lindos que somos 💕</h1>
+
+    <!-- 🔥 CAMBIA ESTAS IMÁGENES -->
+    <img src="foto1.jpg">
+    <img src="foto2.jpg">
+
+    <br>
+    <button class="si" onclick="final()">Sí 💘</button>
+</div>
 
 <script>
-function aceptar(){
-    document.body.innerHTML = `
-        <h1>🎉 Felicidades 🎉</h1>
-        <h2 style="color:white;">Eres mi San Valentín mona 💖</h2>
-        <h3 style="color:white;">Te amo mucho ❤️</h3>
-    `;
-    corazones();
-}
 
 function moverNo(){
     const boton = document.querySelector(".no");
@@ -88,6 +100,20 @@ function moverNo(){
     boton.style.position="absolute";
     boton.style.left = x + "px";
     boton.style.top = y + "px";
+}
+
+function mostrarFotos(){
+    document.getElementById("page1").classList.add("hidden");
+    document.getElementById("page2").classList.remove("hidden");
+}
+
+function final(){
+    document.body.innerHTML = `
+        <h1>🎉 Felicidades 🎉</h1>
+        <h2>Eres mi San Valentín mona 💖</h2>
+        <h3>Te amo mucho ❤️</h3>
+    `;
+    corazones();
 }
 
 function corazones(){
@@ -100,7 +126,12 @@ function corazones(){
         setTimeout(()=>heart.remove(),5000);
     },300);
 }
+
 </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
