@@ -1,220 +1,258 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Nuestra Historia</title>
 
 <style>
-body{
-    margin:0;
-    overflow:hidden;
-    font-family:Arial, sans-serif;
-    background:black;
-    color:white;
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: black;
+  color: white;
 }
 
 /* ESTRELLAS PROFUNDAS */
-.stars{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:black;
-    overflow:hidden;
-    z-index:-2;
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+  z-index: -2;
 }
 
-.stars::after{
-    content:"";
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    box-shadow:
-    100px 200px white, 300px 400px white, 500px 600px white,
-    800px 150px white, 1200px 700px white, 1600px 300px white,
-    200px 800px white, 900px 500px white, 1400px 200px white,
+.stars::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  box-shadow:
+    100px 200px white,
+    300px 400px white,
+    500px 600px white,
+    800px 150px white,
+    1200px 700px white,
+    1600px 300px white,
+    200px 800px white,
+    900px 500px white,
+    1400px 200px white,
     1700px 600px white;
-    animation:moveStars 60s linear infinite;
+  animation: moveStars 60s linear infinite;
 }
 
-@keyframes moveStars{
-    from{transform:translateY(0);}
-    to{transform:translateY(-2000px);}
+@keyframes moveStars {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
 }
 
 /* CONTENEDOR */
-.container{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    text-align:center;
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 0 15px;
+  width: 100%;
+  max-width: 450px;
+  box-sizing: border-box;
 }
 
 /* BOTONES */
-button{
-    padding:15px 35px;
-    margin:15px;
-    font-size:18px;
-    border:none;
-    border-radius:30px;
-    cursor:pointer;
-    transition:0.3s;
+button {
+  padding: 15px 35px;
+  margin: 15px 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  user-select: none;
 }
 
-.si{
-    background:#ff0066;
-    color:white;
+.si {
+  background: #ff0066;
+  color: white;
 }
 
-.no{
-    background:white;
-    color:#ff0066;
+.no {
+  background: white;
+  color: #ff0066;
 }
 
-button:hover{
-    transform:scale(1.1);
+button:hover {
+  transform: scale(1.1);
 }
 
-img{
-    width:160px;
-    border-radius:20px;
-    margin:10px;
-    box-shadow:0 0 25px pink;
+/* IMÁGENES */
+img {
+  width: 160px;
+  max-width: 45vw;
+  border-radius: 20px;
+  margin: 10px;
+  box-shadow: 0 0 25px pink;
+  user-select: none;
 }
 
 /* STAR WARS CRAWL */
-.crawl{
-    position:absolute;
-    bottom:-100%;
-    width:100%;
-    height:100%;
-    perspective:400px;
+.crawl {
+  position: absolute;
+  bottom: -100%;
+  width: 100%;
+  height: 100%;
+  perspective: 400px;
 }
 
-.crawl-text{
-    position:absolute;
-    top:100%;
-    width:100%;
-    transform-origin:50% 100%;
-    animation:crawl 20s linear forwards;
-    font-size:28px;
-    color:gold;
+.crawl-text {
+  position: absolute;
+  top: 100%;
+  width: 90%;
+  max-width: 450px;
+  margin: 0 5%;
+  transform-origin: 50% 100%;
+  animation: crawl 12s linear forwards;
+  font-size: clamp(18px, 4vw, 28px);
+  line-height: 1.4;
+  color: gold;
+  font-weight: 600;
+  text-align: center;
+  user-select: none;
 }
 
-@keyframes crawl{
-    0%{top:100%; transform:rotateX(20deg) translateZ(0);}
-    100%{top:-250%; transform:rotateX(25deg) translateZ(-300px);}
+@keyframes crawl {
+  0% {
+    top: 100%;
+    transform: rotateX(20deg) translateZ(0);
+  }
+  100% {
+    top: -250%;
+    transform: rotateX(25deg) translateZ(-300px);
+  }
 }
 
 /* ZOOM INICIAL */
-.intro{
-    font-size:40px;
-    animation:zoomOut 5s forwards;
+.intro {
+  font-size: clamp(28px, 6vw, 40px);
+  animation: zoomOut 5s forwards;
+  color: #ff69b4;
+  font-weight: bold;
+  user-select: none;
 }
 
-@keyframes zoomOut{
-    0%{transform:scale(3); opacity:1;}
-    100%{transform:scale(0.5); opacity:0;}
+@keyframes zoomOut {
+  0% {
+    transform: scale(3);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
 }
 
 /* CORAZONES */
-.heart{
-    position:absolute;
-    bottom:-20px;
-    font-size:20px;
-    animation:subir 5s linear infinite;
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: subir 5s linear infinite;
+  user-select: none;
 }
 
-@keyframes subir{
-    0%{transform:translateY(0);}
-    100%{transform:translateY(-100vh);}
+@keyframes subir {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100vh);
+  }
 }
 </style>
 </head>
 
 <body>
+  <div class="stars"></div>
 
-<div class="stars"></div>
+  <audio id="musica" src="baile.mp3"></audio>
 
-<audio id="musica" src="baile.mp3"></audio>
-
-<div class="container" id="contenido">
+  <div class="container" id="contenido">
     <h1 id="pregunta">¿Quieres ser mi San Valentín? 💖</h1>
     <button class="si" onclick="aceptar()">Sí ❤️</button>
     <button class="no" onclick="noClick()">No 😢</button>
     <div id="fotos"></div>
-</div>
+  </div>
 
-<script>
+  <script>
+    let contadorNo = 0;
 
-let contadorNo = 0;
+    function noClick() {
+      contadorNo++;
 
-function noClick(){
-    contadorNo++;
-
-    if(contadorNo == 1){
-        document.getElementById("pregunta").innerText="¿Estás segura? 🥺";
-    }
-    else if(contadorNo == 2){
-        document.getElementById("pregunta").innerText="¿Muy segura? Mira nuestras fotos 💕";
-        document.getElementById("fotos").innerHTML=`
-            <img src="foto1.jpg">
-            <img src="foto2.jpg"><br>
-            <img src="foto3.jpg">
-            <img src="foto4.jpg">
+      if (contadorNo == 1) {
+        document.getElementById("pregunta").innerText = "¿Estás segura? 🥺";
+      } else if (contadorNo == 2) {
+        document.getElementById("pregunta").innerText = "¿Muy segura? Mira nuestras fotos 💕";
+        document.getElementById("fotos").innerHTML = `
+            <img src="foto1.jpg" alt="Foto 1">
+            <img src="foto2.jpg" alt="Foto 2"><br>
+            <img src="foto3.jpg" alt="Foto 3">
+            <img src="foto4.jpg" alt="Foto 4">
         `;
-        document.querySelector(".no").style.display="none";
+        document.querySelector(".no").style.display = "none";
+      }
     }
-}
 
-function aceptar(){
+    function aceptar() {
+      const audio = document.getElementById("musica");
+      audio.play();
 
-    let audio=document.getElementById("musica");
-    audio.play();
-
-    document.getElementById("contenido").innerHTML=`
+      document.getElementById("contenido").innerHTML = `
         <div class="intro">Hace mucho tiempo... en una historia de amor inolvidable ❤️</div>
-    `;
+      `;
 
-    setTimeout(()=>{
-        document.getElementById("contenido").innerHTML=`
-            <div class="crawl">
-                <div class="crawl-text">
-                    <p>Eres la mejor mujer con la que he estado...</p>
-                    <br>
-                    <p>Gracias por acompañarme siempre</p>
-                    <p>y estar conmigo en todo.</p>
-                    <br>
-                    <p>De verdad te amo mucho negra ❤️</p>
-                </div>
+      setTimeout(() => {
+        document.getElementById("contenido").innerHTML = `
+          <div class="crawl">
+            <div class="crawl-text">
+              <p>Eres la mejor mujer con la que he estado...</p>
+              <br>
+              <p>Gracias por acompañarme siempre</p>
+              <p>y estar conmigo en todo.</p>
+              <br>
+              <p>De verdad te amo mucho negra ❤️</p>
             </div>
+          </div>
         `;
-    },5000);
+      }, 5000);
 
-    setTimeout(()=>{
-        document.getElementById("contenido").innerHTML=`
-            <h1>🎉 FELICIDADES 🎉</h1>
-            <h2>Eres mi San Valentín mona 💖</h2>
-            <h3>Te amo mucho ❤️</h3>
+      setTimeout(() => {
+        document.getElementById("contenido").innerHTML = `
+          <h1>🎉 FELICIDADES 🎉</h1>
+          <h2>Eres mi San Valentín mona 💖</h2>
+          <h3>Te amo mucho ❤️</h3>
         `;
         corazones();
-    },25000);
-}
+      }, 17000);
+    }
 
-function corazones(){
-    setInterval(()=>{
-        let heart=document.createElement("div");
-        heart.className="heart";
-        heart.innerHTML="❤️";
-        heart.style.left=Math.random()*100+"vw";
+    function corazones() {
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
         document.body.appendChild(heart);
-        setTimeout(()=>heart.remove(),5000);
-    },300);
-}
-
-</script>
-
+        setTimeout(() => heart.remove(), 5000);
+      }, 300);
+    }
+  </script>
 </body>
 </html>
